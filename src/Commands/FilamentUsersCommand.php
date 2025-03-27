@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Panservice\FilamentUsers\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentUsersCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-users';
 
     public $description = 'My command';
 
