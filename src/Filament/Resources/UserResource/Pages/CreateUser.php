@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class CreateUser extends CreateRecord
 {
-    protected static string $resource = UserResource::class;
+    public static function getResource(): string
+    {
+        return config('filament-users.resource.class', UserResource::class);
+    }
 
     public function getHeading(): string|Htmlable
     {

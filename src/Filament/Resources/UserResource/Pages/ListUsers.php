@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
+use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class ListUsers extends ListRecords
 {
@@ -14,6 +14,11 @@ class ListUsers extends ListRecords
     public function getTitle(): string|Htmlable
     {
         return __('filament-users::filament-users.resource.users');
+    }
+
+    public static function getResource(): string
+    {
+        return config('filament-users.resource.class', UserResource::class);
     }
 
     protected function getHeaderActions(): array
