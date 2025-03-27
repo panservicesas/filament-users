@@ -76,7 +76,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Marco Germani](https://github.com/marcogermani1987)
+- [Marco Germani](https://github.com/marcogermani87)
 - [All Contributors](../../contributors)
 
 ## License
