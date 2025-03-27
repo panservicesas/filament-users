@@ -79,7 +79,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-### About Panservice
+## About Panservice
 
 <strong><i>Costruiamo servizi internet su misura da oltre 25 anni</i></strong>
 
