@@ -9,7 +9,6 @@ use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class EditUser extends EditRecord
 {
-
     public function getHeading(): string|Htmlable
     {
         return __('filament-users::filament-users.resource.edit_user');
