@@ -1,19 +1,20 @@
-# Manage your users with integration of filament-shield and filament-impersonate
+<p class="filament-hidden">
+<img src="https://banners.beyondco.de/filament-users.png?theme=light&packageManager=composer+require&packageName=panservicesas%2Ffilament-users&pattern=architect&style=style_1&description=Easily+manage+your+Filament+users&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg" class="filament-hidden">
+</p>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/panservicesas/filament-users.svg?style=flat-square)](https://packagist.org/packages/panservicesas/filament-users)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/panservicesas/filament-users/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/panservicesas/filament-users/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/panservicesas/filament-users/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/panservicesas/filament-users/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/panservicesas/filament-users.svg?style=flat-square)](https://packagist.org/packages/panservicesas/filament-users)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Manage your users with integration of filament-shield and filament-impersonate.
 
-## Support us
+## Version Compatibility
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/filament-users.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/filament-users)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+| Plugin  | Filament | Laravel | PHP |
+| ------------- | ------------- | ------------- | -------------|
+| 1.x  | 3.x  | 10.x | 8.x |
+| 1.x  | 3.x  | 11.x \| 12.x | 8.2 \| 8.3 \| 8.4 |
 
 ## Installation
 
@@ -21,13 +22,6 @@ You can install the package via composer:
 
 ```bash
 composer require panservicesas/filament-users
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-users-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,6 +34,10 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'resource' => [
+        'group' => 'Admin',
+        'class' => UserResource::class,
+    ],
 ];
 ```
 
@@ -52,8 +50,7 @@ php artisan vendor:publish --tag="filament-users-views"
 ## Usage
 
 ```php
-$filamentUsers = new Panservice\FilamentUsers();
-echo $filamentUsers->echoPhrase('Hello, Panservice!');
+->plugin(\Panservice\FilamentUsers\FilamentUsers::make())
 ```
 
 ## Testing
@@ -62,17 +59,16 @@ echo $filamentUsers->echoPhrase('Hello, Panservice!');
 composer test
 ```
 
+## Languages Supported
+
+Filament Users Plugin is translated for:
+
+- English <sup><sub>EN</sub></sup>
+- Italian <sup><sub>IT</sub></sup>
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
