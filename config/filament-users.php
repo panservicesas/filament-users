@@ -4,5 +4,5 @@
 return [
     'resource' => [
         'group' => 'Admin',
-    ]
+    ],
 ];
