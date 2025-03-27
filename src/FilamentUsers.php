@@ -4,6 +4,7 @@ namespace Panservice\FilamentUsers;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class FilamentUsers implements Plugin
 {
@@ -12,7 +13,12 @@ class FilamentUsers implements Plugin
         return FilamentUsersServiceProvider::$name;
     }
 
-    public function register(Panel $panel): void {}
+    public function register(Panel $panel): void
+    {
+        $panel->resources([
+            config('filament-users.resource.class', UserResource::class),
+        ]);
+    }
 
     public function boot(Panel $panel): void {}
 
