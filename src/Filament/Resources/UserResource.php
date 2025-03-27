@@ -67,19 +67,19 @@ class UserResource extends Resource
                             ->label(__('filament-users::filament-users.resource.password'))
                             ->password()
                             ->maxLength(255)
-                            ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                            ->dehydrated(fn($state) => filled($state))
-                            ->required(fn(string $context): bool => $context === 'create')
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => filled($state))
+                            ->required(fn (string $context): bool => $context === 'create')
                             ->revealable(),
                         Forms\Components\Select::make('roles')
                             ->label(__('filament-users::filament-users.resource.role'))
                             ->relationship('roles', 'name')
-                            ->getOptionLabelFromRecordUsing(fn(Model $record) => Str::headline($record->name))
+                            ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
                             ->multiple()
                             ->preload()
                             ->searchable()
                             ->required()
-                            ->visible(fn(): bool => filamentShieldIsInstalled()),
+                            ->visible(fn (): bool => filamentShieldIsInstalled()),
                     ])->columns(),
             ]);
     }
@@ -96,7 +96,7 @@ class UserResource extends Resource
                     ->searchable(),
                 RolesList::make('roles')
                     ->label(__('filament-users::filament-users.resource.role'))
-                    ->visible(fn(): bool => filamentShieldIsInstalled()),
+                    ->visible(fn (): bool => filamentShieldIsInstalled()),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('filament-users::filament-users.resource.created_at'))
                     ->dateTime('d/m/Y H:i:s')
