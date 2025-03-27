@@ -6,5 +6,5 @@ return [
     'resource' => [
         'group' => 'Admin',
         'class' => UserResource::class,
-    ]
+    ],
 ];
