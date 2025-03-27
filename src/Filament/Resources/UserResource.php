@@ -3,7 +3,6 @@
 namespace Panservice\FilamentUsers\Filament\Resources;
 
 use App\Models\User;
-use App\Tables\Columns\RolesList;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,6 +15,7 @@ use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\CreateUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
+use Panservice\FilamentUsers\Tables\Columns\RolesList;
 
 class UserResource extends Resource
 {
