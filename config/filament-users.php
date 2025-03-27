@@ -1,6 +1,7 @@
 <?php
 
-// config for Panservice/FilamentUsers
+use Panservice\FilamentUsers\Filament\Resources\UserResource;
+
 return [
     'resource' => [
         'group' => 'Admin',
