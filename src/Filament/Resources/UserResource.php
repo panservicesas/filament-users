@@ -75,7 +75,7 @@ class UserResource extends Resource
                             ->label(__('filament-users::filament-users.resource.role'))
                             ->relationship('roles', 'name')
                             ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
-                            ->multiple()
+                            ->multiple(config('filament-users.resource.roles.multiple', false))
                             ->preload()
                             ->searchable()
                             ->required()

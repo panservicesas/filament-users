@@ -6,5 +6,8 @@ return [
     'resource' => [
         'group' => 'Admin',
         'class' => UserResource::class,
+        'roles' => [
+            'multiple' => false,
+        ],
     ],
 ];
