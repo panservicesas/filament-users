@@ -7,7 +7,6 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconSize;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -137,7 +136,7 @@ class UserResource extends Resource
     {
         return [
             'index' => ListUsers::route('/'),
-//            'create' => CreateUser::route('/create'),
+            //            'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
