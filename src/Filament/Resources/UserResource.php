@@ -109,10 +109,7 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->iconSize(IconSize::Medium)
-                    ->label(false)
-                    ->slideOver()
-                    ->modalWidth(MaxWidth::Large)
-                    ->closeModalByClickingAway(false),
+                    ->label(false),
                 Tables\Actions\DeleteAction::make()
                     ->iconSize(IconSize::Medium)
                     ->label(false),
@@ -130,7 +127,7 @@ class UserResource extends Resource
         $relations = [];
 
         if (filamentAuthenticationLogIsInstalled()) {
-            $relations[] = \Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin::make();
+            $relations[] = \Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager::class;
         }
 
         return $relations;
@@ -140,8 +137,8 @@ class UserResource extends Resource
     {
         return [
             'index' => ListUsers::route('/'),
-            //            'create' => CreateUser::route('/create'),
-            //            'edit' => EditUser::route('/{record}/edit'),
+//            'create' => CreateUser::route('/create'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 

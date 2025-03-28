@@ -10,7 +10,7 @@ if (! function_exists('filamentShieldIsInstalled')) {
      */
     function filamentShieldIsInstalled(): bool
     {
-        return array_key_exists('filament-shield', Filament::getCurrentPanel()?->getPlugins() ?? []);
+        return class_exists('\BezhanSalleh\FilamentShield\FilamentShieldServiceProvider');
     }
 }
 
@@ -22,6 +22,6 @@ if (! function_exists('filamentAuthenticationLogIsInstalled')) {
      */
     function filamentAuthenticationLogIsInstalled(): bool
     {
-        return array_key_exists('authentication-log', Filament::getCurrentPanel()?->getPlugins() ?? []);
+        return class_exists('\Rappasoft\LaravelAuthenticationLog\LaravelAuthenticationLogServiceProvider');
     }
 }
