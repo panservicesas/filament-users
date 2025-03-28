@@ -4,6 +4,7 @@ namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Enums\MaxWidth;
 use Illuminate\Contracts\Support\Htmlable;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
@@ -24,7 +25,10 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->slideOver()
+                ->modalWidth(MaxWidth::Large)
+                ->closeModalByClickingAway(false),
         ];
     }
 }

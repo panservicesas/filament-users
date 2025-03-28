@@ -18,8 +18,9 @@
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
+        "illuminate/contracts": "^10.0||^11.0||^12.0",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^10.0||^11.0||^12.0"
+        "tapp/filament-authentication-log": "^4.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",

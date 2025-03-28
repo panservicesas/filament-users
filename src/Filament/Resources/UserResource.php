@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -80,8 +81,8 @@ class UserResource extends Resource
                             ->searchable()
                             ->required()
                             ->visible(fn (): bool => filamentShieldIsInstalled()),
-                    ])->columns(),
-            ]);
+                    ]),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -108,7 +109,10 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->iconSize(IconSize::Medium)
-                    ->label(false),
+                    ->label(false)
+                    ->slideOver()
+                    ->modalWidth(MaxWidth::Large)
+                    ->closeModalByClickingAway(false),
                 Tables\Actions\DeleteAction::make()
                     ->iconSize(IconSize::Medium)
                     ->label(false),
@@ -118,20 +122,26 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->extremePaginationLinks();
+            ->paginated();
     }
 
     public static function getRelations(): array
     {
-        return [];
+        $relations = [];
+
+        if (filamentAuthenticationLogIsInstalled()) {
+            $relations[] = \Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin::make();
+        }
+
+        return $relations;
     }
 
     public static function getPages(): array
     {
         return [
             'index' => ListUsers::route('/'),
-            'create' => CreateUser::route('/create'),
-            'edit' => EditUser::route('/{record}/edit'),
+            //            'create' => CreateUser::route('/create'),
+            //            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 
