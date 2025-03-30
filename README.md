@@ -40,6 +40,7 @@ return [
         'roles' => [
             'multiple' => false,
         ],
+        'datetime_format' => 'd/m/Y H:i:s',
     ],
 ];
 ```
