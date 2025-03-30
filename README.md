@@ -7,14 +7,13 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/panservicesas/filament-users/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/panservicesas/filament-users/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/panservicesas/filament-users.svg?style=flat-square)](https://packagist.org/packages/panservicesas/filament-users)
 
-Manage your users with integration of filament-shield and filament-impersonate.
+Manage your users with integration of filament-shield, filament-authentication-log and filament-impersonate.
 
 ## Version Compatibility
 
-| Plugin  | Filament | Laravel | PHP |
-| ------------- | ------------- | ------------- | -------------|
-| 1.x  | 3.x  | 10.x | 8.x |
-| 1.x  | 3.x  | 11.x \| 12.x | 8.2 \| 8.3 \| 8.4 |
+| Plugin | Filament | Laravel              | PHP               |
+|--------|----------|----------------------|-------------------|
+| 1.x    | 3.x      | 10.x \| 11.x \| 12.x | 8.2 \| 8.3 \| 8.4 |
 
 ## Installation
 
