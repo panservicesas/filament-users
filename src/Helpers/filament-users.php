@@ -25,3 +25,15 @@ if (! function_exists('filamentAuthenticationLogIsInstalled')) {
         return class_exists('\Rappasoft\LaravelAuthenticationLog\LaravelAuthenticationLogServiceProvider');
     }
 }
+
+if (! function_exists('filamentImpersonateIsInstalled')) {
+    /**
+     * Determines if the 'filament-impersonate' plugin is installed in the current Filament panel.
+     *
+     * @return bool True if the 'filament-impersonate' plugin is installed, false otherwise.
+     */
+    function filamentImpersonateIsInstalled(): bool
+    {
+        return class_exists('\STS\FilamentImpersonate\FilamentImpersonateServiceProvider');
+    }
+}

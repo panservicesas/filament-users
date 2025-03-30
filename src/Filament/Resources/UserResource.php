@@ -2,9 +2,11 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources;
 
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Support\Enums\IconSize;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -30,6 +32,11 @@ class UserResource extends Resource
         return config('filament-users.resource.globally_searchable_attributes', [
             'name', 'email',
         ]);
+    }
+
+    public static function getSlug(): string
+    {
+        return config('filament-users.resource.slug', 'admin/users');
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
@@ -121,18 +128,7 @@ class UserResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
-                    ->iconSize(IconSize::Medium)
-                    ->label(false),
-                Tables\Actions\DeleteAction::make()
-                    ->iconSize(IconSize::Medium)
-                    ->label(false)
-                    ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
-                    ->after(function () {
-                        Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
-                    }),
-            ])
+            ->actions(self::getActions())
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
@@ -154,6 +150,32 @@ class UserResource extends Resource
         }
 
         return $relations;
+    }
+
+    public static function getActions(): array
+    {
+        $actions = [];
+
+        if (filamentAuthenticationLogIsInstalled()) {
+            $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make()
+                ->iconSize(IconSize::Small)
+                ->color(Color::Amber)
+                ->redirectTo(Filament::getCurrentPanel()->getPath());
+        }
+
+        $actions[] = Tables\Actions\EditAction::make()
+            ->iconSize(IconSize::Medium)
+            ->label(false);
+
+        $actions[] = Tables\Actions\DeleteAction::make()
+            ->iconSize(IconSize::Medium)
+            ->label(false)
+            ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
+            ->after(function () {
+                Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+            });
+
+        return $actions;
     }
 
     public static function getPages(): array
