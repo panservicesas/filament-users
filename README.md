@@ -57,6 +57,10 @@ php artisan vendor:publish --tag="filament-users-views"
 ->plugin(\Panservice\FilamentUsers\FilamentUsers::make())
 ```
 
+If you use [filament-authentication-log](https://github.com//TappNetwork/filament-authentication-log) follow this configuration instructions:
+- If present remove `AuthenticationLoggable` trait from your `User` model
+- Add the dedicated `HasUserAuthenticationLog` trait to your `User` model
+
 ## Testing
 
 ```bash

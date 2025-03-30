@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\CreateUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
 use Panservice\FilamentUsers\Tables\Columns\RolesList;
@@ -111,12 +110,12 @@ class UserResource extends Resource
                     ->visible(fn (): bool => filamentShieldIsInstalled()),
                 Tables\Columns\TextColumn::make('last_login_at')
                     ->label(__('filament-users::filament-users.resource.last_login_at'))
-                    ->dateTime('d/m/Y H:i:s')
+                    ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
                     ->visible(fn (): bool => filamentAuthenticationLogIsInstalled())
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('filament-users::filament-users.resource.created_at'))
-                    ->dateTime('d/m/Y H:i:s')
+                    ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
                     ->searchable(),
             ])
             ->filters([
@@ -161,7 +160,6 @@ class UserResource extends Resource
     {
         return [
             'index' => ListUsers::route('/'),
-            //            'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
