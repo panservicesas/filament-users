@@ -36,7 +36,11 @@ This is the contents of the published config file:
 return [
     'resource' => [
         'group' => 'Admin',
-        'class' => UserResource::class,
+        'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
+        'model' => \App\Models\User::class,
+        'roles' => [
+            'multiple' => false,
+        ],
     ],
 ];
 ```

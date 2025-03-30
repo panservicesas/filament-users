@@ -6,6 +6,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Enums\MaxWidth;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Cache;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class ListUsers extends ListRecords
@@ -28,7 +29,17 @@ class ListUsers extends ListRecords
             Actions\CreateAction::make()
                 ->slideOver()
                 ->modalWidth(MaxWidth::Large)
-                ->closeModalByClickingAway(false),
+                ->closeModalByClickingAway(false)
+                ->mutateFormDataUsing(function (array $data) {
+                    if (! config('filament-users.resource.roles.multiple', false)) {
+                        unset($data['roles']);
+                    }
+
+                    return $data;
+                })
+                ->after(function () {
+                    Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+                }),
         ];
     }
 }

@@ -11,5 +11,10 @@ return [
         'users' => 'Users',
         'new_user' => 'New user',
         'edit_user' => 'Edit user',
+        'last_login_at' => 'Last login',
+    ],
+    'widget' => [
+        'heading' => 'Users',
+        'users' => 'Users',
     ],
 ];

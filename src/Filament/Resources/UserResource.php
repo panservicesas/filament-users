@@ -2,15 +2,15 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources;
 
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconSize;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\CreateUser;
@@ -20,7 +20,7 @@ use Panservice\FilamentUsers\Tables\Columns\RolesList;
 
 class UserResource extends Resource
 {
-    protected static ?string $model = User::class;
+    const ADMIN_WIDGETS_DASHBOARD_TAG_KEY = 'admin-widgets-dashboard';
 
     protected static ?int $navigationSort = 0;
 
@@ -28,9 +28,14 @@ class UserResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return [
+        return config('filament-users.resource.globally_searchable_attributes', [
             'name', 'email',
-        ];
+        ]);
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
+    {
+        return $record->name;
     }
 
     public static function getNavigationLabel(): string
@@ -46,6 +51,11 @@ class UserResource extends Resource
     public static function getBreadcrumb(): string
     {
         return __('filament-users::filament-users.resource.users');
+    }
+
+    public static function getModel(): string
+    {
+        return config('filament-users.resource.model', \App\Models\User::class);
     }
 
     public static function form(Form $form): Form
@@ -81,8 +91,9 @@ class UserResource extends Resource
                             ->searchable()
                             ->required()
                             ->visible(fn (): bool => filamentShieldIsInstalled()),
-                    ]),
-            ])->columns(1);
+                    ])
+                    ->columns($form->getOperation() === 'edit' ? 2 : 1),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -98,6 +109,11 @@ class UserResource extends Resource
                 RolesList::make('roles')
                     ->label(__('filament-users::filament-users.resource.role'))
                     ->visible(fn (): bool => filamentShieldIsInstalled()),
+                Tables\Columns\TextColumn::make('last_login_at')
+                    ->label(__('filament-users::filament-users.resource.last_login_at'))
+                    ->dateTime('d/m/Y H:i:s')
+                    ->visible(fn (): bool => filamentAuthenticationLogIsInstalled())
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('filament-users::filament-users.resource.created_at'))
                     ->dateTime('d/m/Y H:i:s')
@@ -112,13 +128,21 @@ class UserResource extends Resource
                     ->label(false),
                 Tables\Actions\DeleteAction::make()
                     ->iconSize(IconSize::Medium)
-                    ->label(false),
+                    ->label(false)
+                    ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
+                    ->after(function () {
+                        Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(function () {
+                            Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+                        }),
                 ]),
             ])
+            ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->id !== auth()->user()?->id)
             ->paginated();
     }
 
@@ -137,7 +161,7 @@ class UserResource extends Resource
     {
         return [
             'index' => ListUsers::route('/'),
-//            'create' => CreateUser::route('/create'),
+            //            'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }

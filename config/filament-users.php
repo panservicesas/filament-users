@@ -1,15 +1,10 @@
 <?php
 
-use Panservice\FilamentUsers\Filament\Resources\UserResource;
-
 return [
     'resource' => [
         'group' => 'Admin',
-        'class' => UserResource::class,
-        'globally_searchable_attributes' => [
-            'name',
-            'email',
-        ],
+        'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
+        'model' => \App\Models\User::class,
         'roles' => [
             'multiple' => false,
         ],
