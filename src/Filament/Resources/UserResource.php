@@ -140,7 +140,11 @@ class UserResource extends Resource
                 ->visible(fn (): bool => filamentShieldIsInstalled()),
             Tables\Columns\TextColumn::make('last_login_at')
                 ->label(__('filament-users::filament-users.resource.last_login_at'))
-                ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
+                ->formatStateUsing(function (string $state): string {
+                    return Carbon::parse($state)
+                        ->format(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'));
+                })
+                ->placeholder(__('filament-users::filament-users.resource.never_logged_in'))
                 ->visible(fn (): bool => filamentAuthenticationLogIsInstalled()),
             Tables\Columns\TextColumn::make('created_at')
                 ->label(__('filament-users::filament-users.resource.created_at'))

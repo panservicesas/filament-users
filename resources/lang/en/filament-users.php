@@ -12,6 +12,7 @@ return [
         'new_user' => 'New user',
         'edit_user' => 'Edit user',
         'last_login_at' => 'Last login',
+        'never_logged_in' => 'Never logged in',
         'created_from' => 'Created from',
         'created_until' => 'Created until',
     ],
