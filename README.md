@@ -34,8 +34,9 @@ This is the contents of the published config file:
 ```php
 return [
     'resource' => [
-        'slug' => 'admin/users',
-        'group' => 'Admin',
+        'group' => null,
+        'cluster' => null,
+        'slug' => 'users',
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
@@ -58,7 +59,7 @@ php artisan vendor:publish --tag="filament-users-views"
 ## Usage
 
 ```php
-->plugin(\Panservice\FilamentUsers\FilamentUsers::make())
+->plugin(\Panservice\FilamentUsers\FilamentUsersPlugin::make())
 ```
 
 If you use [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log) follow this configuration instructions:

@@ -53,7 +53,7 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return config('filament-users.resource.group') ?? __('filament-users::filament-users.resource.group');
+        return config('filament-users.resource.group');
     }
 
     public static function getBreadcrumb(): string
@@ -64,6 +64,11 @@ class UserResource extends Resource
     public static function getModel(): string
     {
         return config('filament-users.resource.model', \App\Models\User::class);
+    }
+
+    public static function getCluster(): ?string
+    {
+        return config('filament-users.resource.cluster');
     }
 
     public static function form(Form $form): Form

@@ -11,6 +11,6 @@ class FilamentUsers extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Panservice\FilamentUsers\FilamentUsers::class;
+        return \Panservice\FilamentUsers\FilamentUsersPlugin::class;
     }
 }

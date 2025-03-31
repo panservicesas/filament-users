@@ -2,8 +2,9 @@
 
 return [
     'resource' => [
-        'slug' => 'admin/users',
-        'group' => 'Admin',
+        'group' => null,
+        'cluster' => null,
+        'slug' => 'users',
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
