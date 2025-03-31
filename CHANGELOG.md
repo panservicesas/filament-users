@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.2.1 - 2025-03-31
+
+### What's Changed
+
+* Optimized last_login_at field with placeholder for empty state
+* Updated README
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.2.0...v1.2.1
+
 ## v1.2.0 - 2025-03-31
 
 ### What's Changed
