@@ -6,7 +6,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
-class FilamentUsers implements Plugin
+class FilamentUsersPlugin implements Plugin
 {
     public function getId(): string
     {
