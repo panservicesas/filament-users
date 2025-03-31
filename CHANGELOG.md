@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.2.0 - 2025-03-31
+
+### What's Changed
+
+* Fixed plugin class.
+* Updated README.
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.1.0...v1.2.0
+
 ## v1.1.0 - 2025-03-31
 
 ### What's Changed
