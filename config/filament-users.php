@@ -10,5 +10,8 @@ return [
             'multiple' => false,
         ],
         'datetime_format' => 'd/m/Y H:i:s',
+        'filters' => [
+            'date_format' => 'd/m/Y',
+        ],
     ],
 ];

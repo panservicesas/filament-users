@@ -7,7 +7,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/panservicesas/filament-users/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/panservicesas/filament-users/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/panservicesas/filament-users.svg?style=flat-square)](https://packagist.org/packages/panservicesas/filament-users)
 
-Manage your users with integration of filament-shield, filament-authentication-log and filament-impersonate.
+Manage your Filament users with integration of filament-shield, filament-authentication-log and filament-impersonate.
 
 ## Version Compatibility
 
@@ -42,6 +42,9 @@ return [
             'multiple' => false,
         ],
         'datetime_format' => 'd/m/Y H:i:s',
+        'filters' => [
+            'date_format' => 'd/m/Y',
+        ],
     ],
 ];
 ```
@@ -58,7 +61,7 @@ php artisan vendor:publish --tag="filament-users-views"
 ->plugin(\Panservice\FilamentUsers\FilamentUsers::make())
 ```
 
-If you use [filament-authentication-log](https://github.com//TappNetwork/filament-authentication-log) follow this configuration instructions:
+If you use [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log) follow this configuration instructions:
 - If present remove `AuthenticationLoggable` trait from your `User` model
 - Add the dedicated `HasUserAuthenticationLog` trait to your `User` model
 
@@ -67,6 +70,16 @@ If you use [filament-authentication-log](https://github.com//TappNetwork/filamen
 ```bash
 composer test
 ```
+
+## Screenshots
+
+### Users list
+
+<img src="https://raw.githubusercontent.com/panservicesas/filament-users/main/art/table.png" style="border-radius:2%"/>
+
+### Filters
+
+<img src="https://raw.githubusercontent.com/panservicesas/filament-users/main/art/filters.png" style="border-radius:2%"/>
 
 ## Languages Supported
 

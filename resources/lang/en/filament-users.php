@@ -12,6 +12,8 @@ return [
         'new_user' => 'New user',
         'edit_user' => 'Edit user',
         'last_login_at' => 'Last login',
+        'created_from' => 'Created from',
+        'created_until' => 'Created until',
     ],
     'widget' => [
         'heading' => 'Users',

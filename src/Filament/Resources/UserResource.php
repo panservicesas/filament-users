@@ -11,7 +11,9 @@ use Filament\Support\Enums\IconSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -67,92 +69,140 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->label(__('filament-users::filament-users.resource.name'))
-                            ->maxLength(255)
-                            ->required(),
-                        Forms\Components\TextInput::make('email')
-                            ->label(__('filament-users::filament-users.resource.email'))
-                            ->email()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true)
-                            ->required(),
-                        Forms\Components\TextInput::make('password')
-                            ->label(__('filament-users::filament-users.resource.password'))
-                            ->password()
-                            ->maxLength(255)
-                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                            ->dehydrated(fn ($state) => filled($state))
-                            ->required(fn (string $context): bool => $context === 'create')
-                            ->revealable(),
-                        Forms\Components\Select::make('roles')
-                            ->label(__('filament-users::filament-users.resource.role'))
-                            ->relationship('roles', 'name')
-                            ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
-                            ->multiple(config('filament-users.resource.roles.multiple', false))
-                            ->preload()
-                            ->searchable()
-                            ->required()
-                            ->visible(fn (): bool => filamentShieldIsInstalled()),
-                    ])
-                    ->columns($form->getOperation() === 'edit' ? 2 : 1),
-            ]);
+            ->schema(self::getFormSchema($form));
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__('filament-users::filament-users.resource.name'))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label(__('filament-users::filament-users.resource.email'))
-                    ->searchable(),
-                RolesList::make('roles')
-                    ->label(__('filament-users::filament-users.resource.role'))
-                    ->visible(fn (): bool => filamentShieldIsInstalled()),
-                Tables\Columns\TextColumn::make('last_login_at')
-                    ->label(__('filament-users::filament-users.resource.last_login_at'))
-                    ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
-                    ->visible(fn (): bool => filamentAuthenticationLogIsInstalled())
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('filament-users::filament-users.resource.created_at'))
-                    ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
-                    ->searchable(),
-            ])
-            ->filters([
-                //
-            ])
+            ->columns(self::getColumns())
+            ->filters(self::getFilters())
             ->actions(self::getActions())
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->after(function () {
-                            Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
-                        }),
-                ]),
-            ])
+            ->bulkActions(self::getBulkActions())
             ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->id !== auth()->user()?->id)
+            ->persistFiltersInSession()
             ->paginated();
     }
 
-    public static function getRelations(): array
+    private static function getFormSchema(Form $form): array
     {
-        $relations = [];
-
-        if (filamentAuthenticationLogIsInstalled()) {
-            $relations[] = \Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager::class;
-        }
-
-        return $relations;
+        return [
+            Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label(__('filament-users::filament-users.resource.name'))
+                        ->maxLength(255)
+                        ->required(),
+                    Forms\Components\TextInput::make('email')
+                        ->label(__('filament-users::filament-users.resource.email'))
+                        ->email()
+                        ->maxLength(255)
+                        ->unique(ignoreRecord: true)
+                        ->required(),
+                    Forms\Components\TextInput::make('password')
+                        ->label(__('filament-users::filament-users.resource.password'))
+                        ->password()
+                        ->maxLength(255)
+                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create')
+                        ->revealable(),
+                    Forms\Components\Select::make('roles')
+                        ->label(__('filament-users::filament-users.resource.role'))
+                        ->relationship('roles', 'name')
+                        ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
+                        ->multiple(config('filament-users.resource.roles.multiple', false))
+                        ->preload()
+                        ->searchable()
+                        ->required()
+                        ->visible(fn (): bool => filamentShieldIsInstalled()),
+                ])
+                ->columns($form->getOperation() === 'edit' ? 2 : 1),
+        ];
     }
 
-    public static function getActions(): array
+    private static function getColumns(): array
+    {
+        return [
+            Tables\Columns\TextColumn::make('name')
+                ->label(__('filament-users::filament-users.resource.name'))
+                ->searchable(),
+            Tables\Columns\TextColumn::make('email')
+                ->label(__('filament-users::filament-users.resource.email'))
+                ->searchable(),
+            RolesList::make('roles')
+                ->label(__('filament-users::filament-users.resource.role'))
+                ->visible(fn (): bool => filamentShieldIsInstalled()),
+            Tables\Columns\TextColumn::make('last_login_at')
+                ->label(__('filament-users::filament-users.resource.last_login_at'))
+                ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'))
+                ->visible(fn (): bool => filamentAuthenticationLogIsInstalled()),
+            Tables\Columns\TextColumn::make('created_at')
+                ->label(__('filament-users::filament-users.resource.created_at'))
+                ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s')),
+        ];
+    }
+
+    private static function getFilters(): array
+    {
+        $dateFormat = config('filament-users.resource.filters.date_format', 'Y-m-d');
+        $createdFromLabel = __('filament-users::filament-users.resource.created_from');
+        $createdUntilLabel = __('filament-users::filament-users.resource.created_until');
+
+        return [
+            Tables\Filters\SelectFilter::make('roles')
+                ->label(__('filament-users::filament-users.resource.role'))
+                ->relationship('roles', 'name')
+                ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
+                ->searchable()
+                ->preload(),
+            Tables\Filters\Filter::make('created_at')
+                ->form([
+                    Forms\Components\DatePicker::make('created_from')
+                        ->label($createdFromLabel)
+                        ->closeOnDateSelection()
+                        ->displayFormat($dateFormat)
+                        ->native(false),
+                    Forms\Components\DatePicker::make('created_until')
+                        ->label($createdUntilLabel)
+                        ->closeOnDateSelection()
+                        ->displayFormat($dateFormat)
+                        ->native(false),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['created_from'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                        )
+                        ->when(
+                            $data['created_until'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                        );
+                })
+                ->indicateUsing(function (array $data) use ($dateFormat, $createdFromLabel, $createdUntilLabel): array {
+                    $indicators = [];
+
+                    if ($data['created_from'] ?? null) {
+                        $indicators[] = Tables\Filters\Indicator::make(
+                            "$createdFromLabel ".Carbon::parse($data['created_from'])
+                                ->format($dateFormat)
+                        )->removeField('created_from');
+                    }
+
+                    if ($data['created_until'] ?? null) {
+                        $indicators[] = Tables\Filters\Indicator::make(
+                            "$createdUntilLabel ".Carbon::parse($data['created_until'])
+                                ->format($dateFormat)
+                        )->removeField('created_until');
+                    }
+
+                    return $indicators;
+                }),
+        ];
+    }
+
+    private static function getActions(): array
     {
         $actions = [];
 
@@ -176,6 +226,29 @@ class UserResource extends Resource
             });
 
         return $actions;
+    }
+
+    private static function getBulkActions(): array
+    {
+        return [
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make()
+                    ->after(function () {
+                        Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+                    }),
+            ]),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        $relations = [];
+
+        if (filamentAuthenticationLogIsInstalled()) {
+            $relations[] = \Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager::class;
+        }
+
+        return $relations;
     }
 
     public static function getPages(): array
