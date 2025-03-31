@@ -77,7 +77,7 @@ composer test
 
 <img src="https://raw.githubusercontent.com/panservicesas/filament-users/main/art/table.png" style="border-radius:2%"/>
 
-### Filters
+### Advanced filters
 
 <img src="https://raw.githubusercontent.com/panservicesas/filament-users/main/art/filters.png" style="border-radius:2%"/>
 
