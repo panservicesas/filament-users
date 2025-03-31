@@ -5,6 +5,7 @@ namespace Panservice\FilamentUsers\Filament\Resources;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\IconSize;
@@ -69,6 +70,11 @@ class UserResource extends Resource
     public static function getCluster(): ?string
     {
         return config('filament-users.resource.cluster');
+    }
+
+    public static function getSubNavigationPosition(): SubNavigationPosition
+    {
+        return config('filament-users.resource.cluster_sub_navigation_position') ?? self::$subNavigationPosition;
     }
 
     public static function form(Form $form): Form

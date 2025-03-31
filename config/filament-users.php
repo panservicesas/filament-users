@@ -2,9 +2,10 @@
 
 return [
     'resource' => [
+        'slug' => 'users',
         'group' => null,
         'cluster' => null,
-        'slug' => 'users',
+        'cluster_sub_navigation_position' => null,
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
