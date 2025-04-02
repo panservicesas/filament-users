@@ -7,6 +7,8 @@ return [
         'email' => 'E-mail',
         'password' => 'Password',
         'role' => 'Ruolo',
+        'roles' => 'Ruoli',
+        'permissions' => 'Permessi',
         'created_at' => 'Data creazione',
         'users' => 'Utenti',
         'new_user' => 'Nuovo utente',
