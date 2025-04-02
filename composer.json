@@ -1,10 +1,16 @@
 {
     "name": "panservicesas/filament-users",
-    "description": "Manage your users with integration of filament-shield and filament-impersonate",
+    "description": "Manage your Filament users with integration of filament-shield, filament-authentication-log and filament-impersonate",
     "keywords": [
-        "Panservice",
+        "panservicesas",
         "laravel",
-        "filament-users"
+        "filament",
+        "filament-users",
+        "filament-shield",
+        "filament-authentication-log",
+        "filament-impersonate",
+        "spatie",
+        "impersonate"
     ],
     "homepage": "https://github.com/panservicesas/filament-users",
     "license": "MIT",
