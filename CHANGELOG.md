@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.3.0 - 2025-04-02
+
+### What's Changed
+
+* Enhanched widget with roles and permissione count
+* Fixed widget permission name
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.2.2...v1.3.0
+
 ## v1.2.2 - 2025-03-31
 
 ### What's Changed
