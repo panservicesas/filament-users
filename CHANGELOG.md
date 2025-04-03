@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.3.1 - 2025-04-03
+
+### What's Changed
+
+* Fixed cache key for roles widget
+* Fixed sub_navigation_position config label
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.3.0...v1.3.1
+
 ## v1.3.0 - 2025-04-02
 
 ### What's Changed
