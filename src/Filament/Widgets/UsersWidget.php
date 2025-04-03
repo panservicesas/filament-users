@@ -18,8 +18,11 @@ class UsersWidget extends BaseWidget
     {
         $widgets = [];
 
-        $usersCount = Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->rememberForever('users_count_UsersWidget', function () {
-            Log::debug('Cached key "users_count_UsersWidget": is expired fetch data from DB');
+        $tag = config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY;
+        $keyPostfix = '_count_UsersWidget';
+
+        $usersCount = Cache::tags($tag)->rememberForever("user$keyPostfix", function () use ($keyPostfix) {
+            Log::debug("Cached key \"user$keyPostfix\": is expired fetch data from DB");
 
             return config('filament-users.resource.model', \App\Models\User::class)::query()->count('id');
         });
@@ -28,8 +31,8 @@ class UsersWidget extends BaseWidget
             ->icon('heroicon-o-users');
 
         if (filamentShieldIsInstalled()) {
-            $rolesCount = Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->rememberForever('roles_count_UsersWidget', function () {
-                Log::debug('Cached key "roles_count_UsersWidget": is expired fetch data from DB');
+            $rolesCount = Cache::tags($tag)->rememberForever("role$keyPostfix", function () use ($keyPostfix) {
+                Log::debug("Cached key \"role$keyPostfix\": is expired fetch data from DB");
 
                 return Role::query()->count('id');
             });
@@ -37,8 +40,8 @@ class UsersWidget extends BaseWidget
             $widgets[] = BaseWidget\Stat::make(__('filament-users::filament-users.resource.roles'), $rolesCount)
                 ->icon('heroicon-o-shield-check');
 
-            $permissionsCount = Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->rememberForever('permissions_count_UsersWidget', function () {
-                Log::debug('Cached key "permissions_count_UsersWidget": is expired fetch data from DB');
+            $permissionsCount = Cache::tags($tag)->rememberForever("permission$keyPostfix", function () use ($keyPostfix) {
+                Log::debug("Cached key \"permission$keyPostfix\": is expired fetch data from DB");
 
                 return Permission::query()->count('id');
             });

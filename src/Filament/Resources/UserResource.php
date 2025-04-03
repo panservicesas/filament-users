@@ -74,7 +74,7 @@ class UserResource extends Resource
 
     public static function getSubNavigationPosition(): SubNavigationPosition
     {
-        return config('filament-users.resource.cluster_sub_navigation_position') ?? self::$subNavigationPosition;
+        return config('filament-users.resource.sub_navigation_position') ?? self::$subNavigationPosition;
     }
 
     public static function form(Form $form): Form
