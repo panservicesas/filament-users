@@ -46,10 +46,7 @@
         "psr-4": {
             "Panservice\\FilamentUsers\\": "src/",
             "Panservice\\FilamentUsers\\Database\\Factories\\": "database/factories/"
-        },
-        "files": [
-            "src/Helpers/filament-users.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

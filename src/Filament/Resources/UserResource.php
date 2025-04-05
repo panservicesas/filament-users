@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
+use Panservice\FilamentUsers\Support\Utils;
 use Panservice\FilamentUsers\Tables\Columns\RolesList;
 
 class UserResource extends Resource
@@ -126,7 +127,7 @@ class UserResource extends Resource
                         ->preload()
                         ->searchable()
                         ->required()
-                        ->visible(fn (): bool => filamentShieldIsInstalled()),
+                        ->visible(fn (): bool => Utils::isFilamentShieldInstalled()),
                 ])
                 ->columns($form->getOperation() === 'edit' ? 2 : 1),
         ];
@@ -143,7 +144,7 @@ class UserResource extends Resource
                 ->searchable(),
             RolesList::make('roles')
                 ->label(__('filament-users::filament-users.resource.role'))
-                ->visible(fn (): bool => filamentShieldIsInstalled()),
+                ->visible(fn (): bool => Utils::isFilamentShieldInstalled()),
             Tables\Columns\TextColumn::make('last_login_at')
                 ->label(__('filament-users::filament-users.resource.last_login_at'))
                 ->formatStateUsing(function (string $state): string {
@@ -151,7 +152,7 @@ class UserResource extends Resource
                         ->format(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'));
                 })
                 ->placeholder(__('filament-users::filament-users.resource.never_logged_in'))
-                ->visible(fn (): bool => filamentAuthenticationLogIsInstalled()),
+                ->visible(fn (): bool => Utils::isFilamentAuthenticationLogInstalled()),
             Tables\Columns\TextColumn::make('created_at')
                 ->label(__('filament-users::filament-users.resource.created_at'))
                 ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s')),
@@ -221,7 +222,7 @@ class UserResource extends Resource
     {
         $actions = [];
 
-        if (filamentAuthenticationLogIsInstalled()) {
+        if (Utils::isFilamentImpersonateInstalled()) {
             $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make()
                 ->iconSize(IconSize::Small)
                 ->color(Color::Amber)
@@ -259,7 +260,7 @@ class UserResource extends Resource
     {
         $relations = [];
 
-        if (filamentAuthenticationLogIsInstalled()) {
+        if (Utils::isFilamentAuthenticationLogInstalled()) {
             $relations[] = \Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager::class;
         }
 
