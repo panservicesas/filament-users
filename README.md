@@ -11,6 +11,7 @@ Manage your Filament users with amazing integrations:
 * [filament-shield](https://github.com/bezhanSalleh/filament-shield)
 * [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log)
 * [filament-impersonate](https://github.com/stechstudio/filament-impersonate)
+* [filament-api-service](https://github.com/rupadana/filament-api-service)
 
 ## Version Compatibility
 
