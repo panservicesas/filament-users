@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.4.0 - 2025-04-05
+
+### What's Changed
+
+* Added API support for filament-api-service
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.3.1...v1.4.0
+
 ## v1.3.1 - 2025-04-03
 
 ### What's Changed
