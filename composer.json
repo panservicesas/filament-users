@@ -25,6 +25,7 @@
         "php": "^8.2",
         "filament/filament": "^3.0",
         "illuminate/contracts": "^10.0||^11.0||^12.0",
+        "rupadana/filament-api-service": "^3.4",
         "spatie/laravel-package-tools": "^1.16",
         "tapp/filament-authentication-log": "^4.0"
     },
