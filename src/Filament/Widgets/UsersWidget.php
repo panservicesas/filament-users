@@ -5,6 +5,7 @@ namespace Panservice\FilamentUsers\Filament\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Panservice\FilamentUsers\Support\Utils;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -30,7 +31,7 @@ class UsersWidget extends BaseWidget
         $widgets[] = BaseWidget\Stat::make(__('filament-users::filament-users.widget.users'), $usersCount)
             ->icon('heroicon-o-users');
 
-        if (filamentShieldIsInstalled()) {
+        if (Utils::isFilamentShieldInstalled()) {
             $rolesCount = Cache::tags($tag)->rememberForever("role$keyPostfix", function () use ($keyPostfix) {
                 Log::debug("Cached key \"role$keyPostfix\": is expired fetch data from DB");
 
