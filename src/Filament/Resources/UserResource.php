@@ -98,37 +98,41 @@ class UserResource extends Resource
 
     private static function getFormSchema(Form $form): array
     {
+        $fields = [
+            Forms\Components\TextInput::make('name')
+                ->label(__('filament-users::filament-users.resource.name'))
+                ->maxLength(255)
+                ->required(),
+            Forms\Components\TextInput::make('email')
+                ->label(__('filament-users::filament-users.resource.email'))
+                ->email()
+                ->maxLength(255)
+                ->unique(ignoreRecord: true)
+                ->required(),
+            Forms\Components\TextInput::make('password')
+                ->label(__('filament-users::filament-users.resource.password'))
+                ->password()
+                ->maxLength(255)
+                ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                ->dehydrated(fn ($state) => filled($state))
+                ->required(fn (string $context): bool => $context === 'create')
+                ->revealable(),
+        ];
+
+        if (Utils::isFilamentShieldInstalled()) {
+            $fields[] = Forms\Components\Select::make('roles')
+                ->label(__('filament-users::filament-users.resource.role'))
+                ->relationship('roles', 'name')
+                ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
+                ->multiple(config('filament-users.resource.roles.multiple', false))
+                ->preload()
+                ->searchable()
+                ->required();
+        }
+
         return [
             Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\TextInput::make('name')
-                        ->label(__('filament-users::filament-users.resource.name'))
-                        ->maxLength(255)
-                        ->required(),
-                    Forms\Components\TextInput::make('email')
-                        ->label(__('filament-users::filament-users.resource.email'))
-                        ->email()
-                        ->maxLength(255)
-                        ->unique(ignoreRecord: true)
-                        ->required(),
-                    Forms\Components\TextInput::make('password')
-                        ->label(__('filament-users::filament-users.resource.password'))
-                        ->password()
-                        ->maxLength(255)
-                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                        ->dehydrated(fn ($state) => filled($state))
-                        ->required(fn (string $context): bool => $context === 'create')
-                        ->revealable(),
-                    Forms\Components\Select::make('roles')
-                        ->label(__('filament-users::filament-users.resource.role'))
-                        ->relationship('roles', 'name')
-                        ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
-                        ->multiple(config('filament-users.resource.roles.multiple', false))
-                        ->preload()
-                        ->searchable()
-                        ->required()
-                        ->visible(fn (): bool => Utils::isFilamentShieldInstalled()),
-                ])
+                ->schema($fields)
                 ->columns($form->getOperation() === 'edit' ? 2 : 1),
         ];
     }
@@ -165,57 +169,62 @@ class UserResource extends Resource
         $createdFromLabel = __('filament-users::filament-users.resource.created_from');
         $createdUntilLabel = __('filament-users::filament-users.resource.created_until');
 
-        return [
-            Tables\Filters\SelectFilter::make('roles')
+        $filters = [];
+
+        if (Utils::isFilamentShieldInstalled()) {
+            $filters[] = Tables\Filters\SelectFilter::make('roles')
                 ->label(__('filament-users::filament-users.resource.role'))
                 ->relationship('roles', 'name')
                 ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
                 ->searchable()
-                ->preload(),
-            Tables\Filters\Filter::make('created_at')
-                ->form([
-                    Forms\Components\DatePicker::make('created_from')
-                        ->label($createdFromLabel)
-                        ->closeOnDateSelection()
-                        ->displayFormat($dateFormat)
-                        ->native(false),
-                    Forms\Components\DatePicker::make('created_until')
-                        ->label($createdUntilLabel)
-                        ->closeOnDateSelection()
-                        ->displayFormat($dateFormat)
-                        ->native(false),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['created_from'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                        )
-                        ->when(
-                            $data['created_until'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                        );
-                })
-                ->indicateUsing(function (array $data) use ($dateFormat, $createdFromLabel, $createdUntilLabel): array {
-                    $indicators = [];
+                ->preload();
+        }
 
-                    if ($data['created_from'] ?? null) {
-                        $indicators[] = Tables\Filters\Indicator::make(
-                            "$createdFromLabel ".Carbon::parse($data['created_from'])
-                                ->format($dateFormat)
-                        )->removeField('created_from');
-                    }
+        $filters[] = Tables\Filters\Filter::make('created_at')
+            ->form([
+                Forms\Components\DatePicker::make('created_from')
+                    ->label($createdFromLabel)
+                    ->closeOnDateSelection()
+                    ->displayFormat($dateFormat)
+                    ->native(false),
+                Forms\Components\DatePicker::make('created_until')
+                    ->label($createdUntilLabel)
+                    ->closeOnDateSelection()
+                    ->displayFormat($dateFormat)
+                    ->native(false),
+            ])
+            ->query(function (Builder $query, array $data): Builder {
+                return $query
+                    ->when(
+                        $data['created_from'],
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                    )
+                    ->when(
+                        $data['created_until'],
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                    );
+            })
+            ->indicateUsing(function (array $data) use ($dateFormat, $createdFromLabel, $createdUntilLabel): array {
+                $indicators = [];
 
-                    if ($data['created_until'] ?? null) {
-                        $indicators[] = Tables\Filters\Indicator::make(
-                            "$createdUntilLabel ".Carbon::parse($data['created_until'])
-                                ->format($dateFormat)
-                        )->removeField('created_until');
-                    }
+                if ($data['created_from'] ?? null) {
+                    $indicators[] = Tables\Filters\Indicator::make(
+                        "$createdFromLabel ".Carbon::parse($data['created_from'])
+                            ->format($dateFormat)
+                    )->removeField('created_from');
+                }
 
-                    return $indicators;
-                }),
-        ];
+                if ($data['created_until'] ?? null) {
+                    $indicators[] = Tables\Filters\Indicator::make(
+                        "$createdUntilLabel ".Carbon::parse($data['created_until'])
+                            ->format($dateFormat)
+                    )->removeField('created_until');
+                }
+
+                return $indicators;
+            });
+
+        return $filters;
     }
 
     private static function getActions(): array
