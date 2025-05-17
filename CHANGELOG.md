@@ -2,6 +2,19 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.5.0 - 2025-05-17
+
+### What's Changed
+
+* Fixed issue #2 (Thanks to @nikosid for reporting)
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/panservicesas/filament-users/pull/1
+
+### New Contributors
+
+* @dependabot made their first contribution in https://github.com/panservicesas/filament-users/pull/1
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.4.1...v1.5.0
+
 ## v1.4.1 - 2025-04-05
 
 ### What's Changed
