@@ -2,6 +2,20 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.5.1 - 2025-05-25
+
+### What's Changed
+
+### What's Changed
+
+* Add Spanish translations by @gboquizosanchez in https://github.com/panservicesas/filament-users/pull/4
+
+### New Contributors
+
+* @gboquizosanchez made their first contribution in https://github.com/panservicesas/filament-users/pull/4
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.5.0...v1.5.1
+
 ## v1.5.0 - 2025-05-17
 
 ### What's Changed
