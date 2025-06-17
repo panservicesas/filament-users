@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.5.2 - 2025-06-17
+
+### What's Changed
+
+* Updated API Group
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot in https://github.com/panservicesas/filament-users/pull/5
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.5.1...v1.5.2
+
 ## v1.5.1 - 2025-05-25
 
 ### What's Changed
