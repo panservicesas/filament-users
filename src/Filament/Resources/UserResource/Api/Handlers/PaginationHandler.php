@@ -2,6 +2,7 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers;
 
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
@@ -9,6 +10,7 @@ use Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Transformers\Us
 use Rupadana\ApiService\Http\Handlers;
 use Spatie\QueryBuilder\QueryBuilder;
 
+#[Group('Users')]
 class PaginationHandler extends Handlers
 {
     public static ?string $uri = '/';

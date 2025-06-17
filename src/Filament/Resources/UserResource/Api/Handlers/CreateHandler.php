@@ -2,12 +2,14 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers;
 
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests\CreateUserRequest;
 use Rupadana\ApiService\Http\Handlers;
 
+#[Group('Users')]
 class CreateHandler extends Handlers
 {
     public static ?string $uri = '/';

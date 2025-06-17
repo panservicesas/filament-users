@@ -2,12 +2,14 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers;
 
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 use Rupadana\ApiService\Http\Handlers;
 
+#[Group('Users')]
 class DeleteHandler extends Handlers
 {
     public static ?string $uri = '/{id}';

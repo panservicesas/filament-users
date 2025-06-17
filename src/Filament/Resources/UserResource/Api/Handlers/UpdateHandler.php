@@ -2,11 +2,13 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers;
 
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests\UpdateUserRequest;
 use Rupadana\ApiService\Http\Handlers;
 
+#[Group('Users')]
 class UpdateHandler extends Handlers
 {
     public static ?string $uri = '/{id}';
