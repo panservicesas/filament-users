@@ -93,6 +93,7 @@ Filament Users Plugin is translated for:
 
 - English <sup><sub>EN</sub></sup>
 - Italian <sup><sub>IT</sub></sup>
+- Spanish <sup><sub>ES</sub></sup>
 
 ## Changelog
 
