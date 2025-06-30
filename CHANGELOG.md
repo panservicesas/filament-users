@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.5.3 - 2025-06-30
+
+### What's Changed
+
+* Added widgets autodiscover
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.5.2...v1.5.3
+
 ## v1.5.2 - 2025-06-17
 
 ### What's Changed
