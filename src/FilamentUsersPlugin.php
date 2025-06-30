@@ -18,7 +18,7 @@ class FilamentUsersPlugin implements Plugin
         $panel->resources([
             config('filament-users.resource.class', UserResource::class),
         ])->discoverWidgets(
-            in: __DIR__ . '/Filament/Widgets',
+            in: __DIR__.'/Filament/Widgets',
             for: 'Panservice\\FilamentUsers\\Filament\\Widgets'
         );
     }
