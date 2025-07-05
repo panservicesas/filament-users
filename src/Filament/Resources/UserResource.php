@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
