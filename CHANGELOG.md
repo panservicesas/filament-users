@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v.1.5.4 - 2025-07-05
+
+### What's Changed
+
+* Removed password hash during field hydratation
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.5.3...v.1.5.4
+
 ## v1.5.3 - 2025-06-30
 
 ### What's Changed
