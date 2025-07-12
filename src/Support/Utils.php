@@ -37,6 +37,18 @@ class Utils
         return false;
     }
 
+    public static function isFilamentBreezyInstalled(): bool
+    {
+        if (class_exists('\Jeffgreco13\FilamentBreezy\FilamentBreezyServiceProvider')) {
+            try {
+                return Filament::getPanel()->getPlugin('filament-breezy') instanceof Plugin;
+            } catch (\Exception $e) {
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Determines if the 'filament-impersonate' plugin is installed in the current Filament panel.
      *

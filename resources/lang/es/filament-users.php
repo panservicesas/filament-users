@@ -17,6 +17,7 @@ return [
         'never_logged_in' => 'Nunca ha iniciado sesión',
         'created_from' => 'Creado desde',
         'created_until' => 'Creado hasta',
+        'ignore_2fa' => 'Deshabilitar 2FA',
     ],
     'widget' => [
         'heading' => 'Usuarios',

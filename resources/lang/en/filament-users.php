@@ -17,6 +17,7 @@ return [
         'never_logged_in' => 'Never logged in',
         'created_from' => 'Created from',
         'created_until' => 'Created until',
+        'ignore_2fa' => 'Disable 2FA',
     ],
     'widget' => [
         'heading' => 'Users',

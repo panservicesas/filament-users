@@ -17,6 +17,7 @@ return [
         'never_logged_in' => 'Nessun accesso',
         'created_from' => 'Creato dal',
         'created_until' => 'Creato al',
+        'ignore_2fa' => 'Disattiva 2FA',
     ],
     'widget' => [
         'heading' => 'Utenti',

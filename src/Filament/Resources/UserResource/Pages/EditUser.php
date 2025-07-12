@@ -28,6 +28,10 @@ class EditUser extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        if (empty($data['password'])) {
+            unset($data['password']);
+        }
+
         if (! config('filament-users.resource.roles.multiple', false)) {
             unset($data['roles']);
         }
