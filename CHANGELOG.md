@@ -2,6 +2,16 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.6.0 - 2025-07-12
+
+### What's Changed
+
+* Added about command section.
+* Disable user 2FA when using Filament Breezy
+* Ignore empty password field for update action
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.5.4...v1.6.0
+
 ## v1.5.4 - 2025-07-05
 
 ### What's Changed
