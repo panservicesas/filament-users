@@ -25,7 +25,7 @@ class EditUser extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->visible(fn(Model $record): bool => $record->id !== auth()->user()?->id)
+                ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
                 ->after(function () {
                     Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
                 }),
