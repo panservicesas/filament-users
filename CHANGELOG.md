@@ -2,6 +2,13 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.7.0 - 2025-07-13
+
+### What's Changed
+
+* Fixed delete button visbility into EditUser Page
+* Added functionality to disable 2FA when using Filament Breezy
+
 ## v1.6.0 - 2025-07-12
 
 ### What's Changed
