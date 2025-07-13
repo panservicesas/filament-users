@@ -2,6 +2,7 @@
 
 namespace Panservice\FilamentUsers;
 
+use Panservice\FilamentUsers\Commands\FilamentUsersCommand;
 use Panservice\FilamentUsers\Traits\HasAboutCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -42,9 +43,9 @@ class FilamentUsersServiceProvider extends PackageServiceProvider
     {
         parent::packageBooted();
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/settings');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/settings');
 
         $this->configureAboutCommand();
     }

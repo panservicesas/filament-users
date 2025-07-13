@@ -5,6 +5,8 @@ namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 
 class EditUser extends EditRecord
@@ -22,7 +24,11 @@ class EditUser extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->visible(fn(Model $record): bool => $record->id !== auth()->user()?->id)
+                ->after(function () {
+                    Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
+                }),
         ];
     }
 

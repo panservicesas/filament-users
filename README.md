@@ -9,6 +9,7 @@
 
 Manage your Filament users with amazing integrations:
 * [filament-shield](https://github.com/bezhanSalleh/filament-shield)
+* [filament-breezy](https://github.com/jeffgreco13/filament-breezy)
 * [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log)
 * [filament-impersonate](https://github.com/stechstudio/filament-impersonate)
 * [filament-api-service](https://github.com/rupadana/filament-api-service)
@@ -70,6 +71,14 @@ php artisan vendor:publish --tag="filament-users-views"
 If you use [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log) follow this configuration instructions:
 - If present remove `AuthenticationLoggable` trait from your `User` model
 - Add the dedicated `HasUserAuthenticationLog` trait to your `User` model
+
+Disabling 2FA for Specific Users in [filament-breezy](https://github.com/jeffgreco13/filament-breezy):
+
+```php
+->enableTwoFactorAuthentication(
+    force: fn() => App::environment('production') && !auth()->user()?->ignore_2fa,
+)
+```
 
 ## Testing
 
