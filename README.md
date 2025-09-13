@@ -53,6 +53,11 @@ return [
             'date_format' => 'd/m/Y',
         ],
     ],
+    'email' => [
+        'logo' => null,
+        'footer_text' => null,
+        'layout' => 'filament-users::layouts.email',
+    ],
 ];
 ```
 

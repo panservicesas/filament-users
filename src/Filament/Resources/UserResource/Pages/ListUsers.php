@@ -27,14 +27,14 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->slideOver()
-                ->modalWidth(MaxWidth::Large)
+                ->modalHeading(__('filament-users::filament-users.resource.new_user'))
                 ->closeModalByClickingAway(false)
+                ->closeModalByEscaping(false)
                 ->mutateFormDataUsing(function (array $data) {
-                    if (! config('filament-users.resource.roles.multiple', false)) {
+                    if (!config('filament-users.resource.roles.multiple', false)) {
                         unset($data['roles']);
                     }
-
+                    unset($data['generate_password']);
                     return $data;
                 })
                 ->after(function () {

@@ -2,9 +2,12 @@
 
 namespace Panservice\FilamentUsers\Filament\Resources;
 
+use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Notifications\Notification;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
@@ -16,9 +19,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
+use Panservice\FilamentUsers\Notifications\NewCredentials;
 use Panservice\FilamentUsers\Support\Utils;
 use Panservice\FilamentUsers\Tables\Columns\RolesList;
 
@@ -101,18 +106,25 @@ class UserResource extends Resource
             Forms\Components\TextInput::make('name')
                 ->label(__('filament-users::filament-users.resource.name'))
                 ->maxLength(255)
-                ->required(),
+                ->required()
+                ->columnSpan(1),
             Forms\Components\TextInput::make('email')
                 ->label(__('filament-users::filament-users.resource.email'))
                 ->email()
                 ->maxLength(255)
                 ->unique(ignoreRecord: true)
-                ->required(),
+                ->required()
+                ->columnSpan(1),
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-users::filament-users.resource.password'))
                 ->password()
                 ->required(fn (string $context): bool => $context === 'create')
-                ->revealable(),
+                ->disabled(function(Get $get): bool {
+                    return $get('generate_password');
+                })
+                ->dehydrated(true)
+                ->revealable()
+                ->columnSpan(1),
         ];
 
         if (Utils::isFilamentShieldInstalled()) {
@@ -126,6 +138,15 @@ class UserResource extends Resource
                 ->required();
         }
 
+        $fields[] = Forms\Components\Toggle::make('generate_password')
+            ->label(__('filament-users::filament-users.resource.generate_password'))
+            ->onColor('success')
+            ->offColor('gray')
+            ->afterStateUpdated(function (bool $state, Forms\Set $set) {
+                $set('password', $state ? Str::password(12) : null);
+            })
+            ->live();
+
         if (Utils::isFilamentBreezyInstalled()) {
             $fields[] = Forms\Components\Toggle::make('ignore_2fa')
                 ->label(__('filament-users::filament-users.resource.ignore_2fa'))
@@ -138,7 +159,7 @@ class UserResource extends Resource
         return [
             Forms\Components\Section::make()
                 ->schema($fields)
-                ->columns($form->getOperation() === 'edit' ? 2 : 1),
+                ->columns(2),
         ];
     }
 
@@ -242,6 +263,41 @@ class UserResource extends Resource
     private static function getActions(): array
     {
         $actions = [];
+
+        $actions[] = Tables\Actions\Action::make('new_password')
+            ->hiddenLabel()
+            ->icon('heroicon-s-key')
+            ->iconSize(IconSize::Medium)
+            ->requiresConfirmation()
+            ->modalHeading(__('filament-users::filament-users.resource.send_new_password'))
+            ->databaseTransaction(true)
+            ->action(function (User $record) {
+                try {
+
+                    $newPassword = Str::password(12);
+
+                    $record->update([
+                        'password' => Hash::make($newPassword),
+                    ]);
+
+                    $record->notify(new NewCredentials([
+                        'name' => $record->name,
+                        'password' => $newPassword,
+                    ]));
+
+                    Notification::make()
+                        ->title(__('filament-users::filament-users.resource.new_password_sent'))
+                        ->success()
+                        ->send();
+
+                } catch (\Exception $e) {
+                    Log::error($e->getMessage());
+                    Notification::make()
+                        ->title(__('filament-users::filament-users.resource.new_password_not_sent'))
+                        ->danger()
+                        ->send();
+                }
+            });
 
         if (Utils::isFilamentImpersonateInstalled()) {
             $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make()

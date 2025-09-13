@@ -2,14 +2,6 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
-## v1.6.1 - 2025-07-13
-
-### What's Changed
-
-* Fixed delete button visbility into EditUser Page
-
-**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.6.0...v1.6.1
-
 ## v1.7.0 - 2025-07-13
 
 ### What's Changed
