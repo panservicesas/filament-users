@@ -4,7 +4,6 @@ namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Enums\MaxWidth;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Cache;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
@@ -31,10 +30,11 @@ class ListUsers extends ListRecords
                 ->closeModalByClickingAway(false)
                 ->closeModalByEscaping(false)
                 ->mutateFormDataUsing(function (array $data) {
-                    if (!config('filament-users.resource.roles.multiple', false)) {
+                    if (! config('filament-users.resource.roles.multiple', false)) {
                         unset($data['roles']);
                     }
                     unset($data['generate_password']);
+
                     return $data;
                 })
                 ->after(function () {

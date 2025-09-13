@@ -20,8 +20,8 @@ return [
         'ignore_2fa' => 'Deshabilitar 2FA',
         'generate_password' => 'Generar contraseña',
         'send_new_password' => 'Generar y enviar una nueva contraseña al usuario',
-        'new_password_sent' => "Nueva contraseña enviada al usuario",
-        'new_password_not_sent' => "Error al enviar nueva contraseña al usuario",
+        'new_password_sent' => 'Nueva contraseña enviada al usuario',
+        'new_password_not_sent' => 'Error al enviar nueva contraseña al usuario',
     ],
     'widget' => [
         'heading' => 'Usuarios',

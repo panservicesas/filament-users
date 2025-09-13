@@ -1,6 +1,6 @@
 <?php
 
-namespace  Panservice\FilamentUsers\Notifications;
+namespace Panservice\FilamentUsers\Notifications;
 
 use Filament\Facades\Filament;
 use Illuminate\Bus\Queueable;
@@ -41,24 +41,23 @@ class NewCredentials extends Notification implements ShouldQueue
     {
         $appName = config('app.name');
 
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject(
                 __('filament-users::filament-users.new_credentials.subject', [
-                    'app_name' => $appName
+                    'app_name' => $appName,
                 ])
             )
             ->view('filament-users::emails.new_password', [
-                'content' =>
-                    __('filament-users::filament-users.new_credentials.greeting', [
-                        'name' => $this->data['name']
-                    ]) . '<br/><br/>' .
-                    __('filament-users::filament-users.new_credentials.new_password') . '<br/>' .
-                    $this->data['password'] . '<br/><br/>' .
+                'content' => __('filament-users::filament-users.new_credentials.greeting', [
+                    'name' => $this->data['name'],
+                ]).'<br/><br/>'.
+                    __('filament-users::filament-users.new_credentials.new_password').'<br/>'.
+                    $this->data['password'].'<br/><br/>'.
                     __('filament-users::filament-users.new_credentials.login_action', [
-                        'action' => '<a href="' . Filament::getLoginUrl() . '" target="_blank">' .
-                            __('filament-users::filament-users.new_credentials.here') .
-                            '</a>'
-                    ])
+                        'action' => '<a href="'.Filament::getLoginUrl().'" target="_blank">'.
+                            __('filament-users::filament-users.new_credentials.here').
+                            '</a>',
+                    ]),
             ]);
     }
 
@@ -74,4 +73,3 @@ class NewCredentials extends Notification implements ShouldQueue
         ];
     }
 }
-

@@ -119,7 +119,7 @@ class UserResource extends Resource
                 ->label(__('filament-users::filament-users.resource.password'))
                 ->password()
                 ->required(fn (string $context): bool => $context === 'create')
-                ->disabled(function(Get $get): bool {
+                ->disabled(function (Get $get): bool {
                     return $get('generate_password');
                 })
                 ->dehydrated(true)
