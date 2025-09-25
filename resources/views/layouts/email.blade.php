@@ -1,6 +1,9 @@
 @php
     $appName = config('app.name', 'Laravel');
     $logoPath = config('filament-users.email.logo');
+    if (!empty($logoPath)) {
+        $logoPath = public_path($logoPath);
+    }
     $footerText = config('filament-users.email.footer_text', '© ' . $appName . ' ' . date('Y') . '. Tutti i diritti riservati.');
 @endphp
     <!DOCTYPE html>
@@ -335,7 +338,7 @@
             <div class="email-container">
                 <!-- Header -->
                 <div class="email-header">
-                    @if(file_exists(public_path($logoPath)))
+                    @if(is_file($logoPath) && file_exists($logoPath))
                         <img src="{{ $message->embed(public_path($logoPath)) }}" alt="{{ $appName }}" class="logo">
                     @else
                         <h1 class="title">{{ $appName }}</h1>
