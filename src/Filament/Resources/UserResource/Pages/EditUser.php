@@ -38,6 +38,8 @@ class EditUser extends EditRecord
             unset($data['password']);
         }
 
+        unset($data['generate_password']);
+
         if (! config('filament-users.resource.roles.multiple', false)) {
             unset($data['roles']);
         }

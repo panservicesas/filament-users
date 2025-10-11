@@ -2,14 +2,6 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
-## v1.7.1 - 2025-09-25
-
-### What's Changed
-
-* Fixed logo path validation when empty
-
-**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.7.0...v1.7.1
-
 ## v1.7.0 - 2025-07-13
 
 ### What's Changed
