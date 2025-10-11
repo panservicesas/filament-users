@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.7.2 - 2025-10-11
+
+### What's Changed
+
+* Unset generate_password before update user model
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.7.1...v1.7.2
+
 ## v1.7.0 - 2025-07-13
 
 ### What's Changed
