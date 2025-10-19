@@ -12,7 +12,7 @@ class Utils
 
         if (class_exists('\BezhanSalleh\FilamentShield\FilamentShieldServiceProvider')) {
             try {
-                return Filament::getPanel()->getPlugin('filament-shield') instanceof Plugin;
+                return Filament::getPlugin('filament-shield') instanceof Plugin;
             } catch (\Exception $e) {
             }
         }
@@ -29,7 +29,7 @@ class Utils
     {
         if (class_exists('\Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogServiceProvider')) {
             try {
-                return Filament::getPanel()->getPlugin('authentication-log') instanceof Plugin;
+                return Filament::getPlugin('authentication-log') instanceof Plugin;
             } catch (\Exception $e) {
             }
         }
@@ -41,7 +41,7 @@ class Utils
     {
         if (class_exists('\Jeffgreco13\FilamentBreezy\FilamentBreezyServiceProvider')) {
             try {
-                return Filament::getPanel()->getPlugin('filament-breezy') instanceof Plugin;
+                return Filament::getPlugin('filament-breezy') instanceof Plugin;
             } catch (\Exception $e) {
             }
         }
