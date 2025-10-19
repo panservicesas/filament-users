@@ -3,13 +3,22 @@
 namespace Panservice\FilamentUsers\Filament\Resources;
 
 use App\Models\User;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Facades\Filament;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Notifications\Notification;
-use Filament\Pages\SubNavigationPosition;
+use Filament\Pages\Enums\SubNavigationPosition;
+use Filament\Panel;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Form;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\IconSize;
 use Filament\Tables;
@@ -20,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\EditUser;
 use Panservice\FilamentUsers\Filament\Resources\UserResource\Pages\ListUsers;
@@ -33,7 +43,7 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 0;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-users';
 
     public static function getGloballySearchableAttributes(): array
     {
@@ -42,7 +52,7 @@ class UserResource extends Resource
         ]);
     }
 
-    public static function getSlug(): string
+    public static function getSlug(?Panel $panel = null): string
     {
         return config('filament-users.resource.slug', 'admin/users');
     }
@@ -82,10 +92,10 @@ class UserResource extends Resource
         return config('filament-users.resource.sub_navigation_position') ?? self::$subNavigationPosition;
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(self::getFormSchema($form));
+        return $schema
+            ->schema(self::getFormSchema($schema));
     }
 
     public static function table(Table $table): Table
@@ -93,14 +103,14 @@ class UserResource extends Resource
         return $table
             ->columns(self::getColumns())
             ->filters(self::getFilters())
-            ->actions(self::getActions())
-            ->bulkActions(self::getBulkActions())
+            ->recordActions(self::getActions())
+            ->toolbarActions(self::getBulkActions())
             ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->id !== auth()->user()?->id)
             ->persistFiltersInSession()
             ->paginated();
     }
 
-    private static function getFormSchema(Form $form): array
+    private static function getFormSchema(Schema $schema): array
     {
         $fields = [
             Forms\Components\TextInput::make('name')
@@ -142,7 +152,7 @@ class UserResource extends Resource
             ->label(__('filament-users::filament-users.resource.generate_password'))
             ->onColor('success')
             ->offColor('gray')
-            ->afterStateUpdated(function (bool $state, Forms\Set $set) {
+            ->afterStateUpdated(function (bool $state, Set $set) {
                 $set('password', $state ? Str::password(12) : null);
             })
             ->live();
@@ -157,7 +167,7 @@ class UserResource extends Resource
         }
 
         return [
-            Forms\Components\Section::make()
+            Section::make()
                 ->schema($fields)
                 ->columns(2),
         ];
@@ -264,7 +274,7 @@ class UserResource extends Resource
     {
         $actions = [];
 
-        $actions[] = Tables\Actions\Action::make('new_password')
+        $actions[] = Action::make('new_password')
             ->hiddenLabel()
             ->icon('heroicon-s-key')
             ->iconSize(IconSize::Medium)
@@ -306,11 +316,11 @@ class UserResource extends Resource
                 ->redirectTo(Filament::getCurrentPanel()->getPath());
         }
 
-        $actions[] = Tables\Actions\EditAction::make()
+        $actions[] = EditAction::make()
             ->iconSize(IconSize::Medium)
             ->label(false);
 
-        $actions[] = Tables\Actions\DeleteAction::make()
+        $actions[] = DeleteAction::make()
             ->iconSize(IconSize::Medium)
             ->label(false)
             ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
@@ -324,8 +334,8 @@ class UserResource extends Resource
     private static function getBulkActions(): array
     {
         return [
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make()
+            BulkActionGroup::make([
+                DeleteBulkAction::make()
                     ->after(function () {
                         Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
                     }),
