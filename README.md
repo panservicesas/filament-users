@@ -19,6 +19,7 @@ Manage your Filament users with amazing integrations:
 | Plugin | Filament | Laravel              | PHP               |
 |--------|----------|----------------------|-------------------|
 | 1.x    | 3.x      | 10.x \| 11.x \| 12.x | 8.2 \| 8.3 \| 8.4 |
+| 2.x    | 4.x      | 11.x \| 12.x         | 8.2 \| 8.3 \| 8.4 |
 
 ## Installation
 
