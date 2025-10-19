@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.7.3 - 2025-10-19
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/8
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.7.2...v1.7.3
+
 ## v1.7.2 - 2025-10-11
 
 ### What's Changed
