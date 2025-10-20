@@ -309,7 +309,7 @@ class UserResource extends Resource
             });
 
         if (Utils::isFilamentImpersonateInstalled()) {
-            $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make()
+            $actions[] = \STS\FilamentImpersonate\Actions\Impersonate::make()
                 ->iconSize(IconSize::Small)
                 ->color(Color::Amber)
                 ->redirectTo(Filament::getCurrentPanel()->getPath());

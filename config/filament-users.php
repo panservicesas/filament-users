@@ -5,7 +5,7 @@ return [
         'slug' => 'users',
         'group' => null,
         'cluster' => null,
-        'sub_navigation_position' => null,
+        'sub_navigation_position' => \Filament\Pages\Enums\SubNavigationPosition::Start,
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
