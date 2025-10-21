@@ -1,11 +1,11 @@
 <?php
 
-namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers;
+namespace Panservice\FilamentUsers\Filament\Resources\Api\Handlers;
 
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
+use Panservice\FilamentUsers\Filament\Resources\Api\Requests\UpdateUserRequest;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
-use Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests\UpdateUserRequest;
 use Rupadana\ApiService\Http\Handlers;
 
 #[Group('Users')]
@@ -14,6 +14,8 @@ class UpdateHandler extends Handlers
     public static ?string $uri = '/{id}';
 
     public static ?string $resource = UserResource::class;
+
+    protected static string $permission = 'Update:User';
 
     public static function getMethod()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Transformers;
+namespace Panservice\FilamentUsers\Filament\Resources\Api\Transformers;
 
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;

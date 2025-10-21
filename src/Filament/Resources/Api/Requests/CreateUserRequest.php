@@ -1,19 +1,12 @@
 <?php
 
-namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests;
+namespace Panservice\FilamentUsers\Filament\Resources\Api\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use function Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests\config;
 
-class UpdateUserRequest extends FormRequest
+class CreateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return $this->user()->can('edit_user');
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
