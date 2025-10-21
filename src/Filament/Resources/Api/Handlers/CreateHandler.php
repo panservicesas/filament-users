@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Panservice\FilamentUsers\Filament\Resources\Api\Requests\CreateUserRequest;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
 use Rupadana\ApiService\Http\Handlers;
+
 use function Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Handlers\now;
 
 #[Group('Users')]

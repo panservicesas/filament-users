@@ -3,6 +3,7 @@
 namespace Panservice\FilamentUsers\Filament\Resources\Api\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use function Panservice\FilamentUsers\Filament\Resources\UserResource\Api\Requests\config;
 
 class UpdateUserRequest extends FormRequest

@@ -104,7 +104,7 @@ class UserResource extends Resource
             ->filters(self::getFilters())
             ->recordActions(self::getActions())
             ->toolbarActions(self::getBulkActions())
-            ->checkIfRecordIsSelectableUsing(fn(Model $record): bool => $record->id !== auth()->user()?->id)
+            ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->id !== auth()->user()?->id)
             ->persistFiltersInSession()
             ->paginated();
     }
@@ -127,7 +127,7 @@ class UserResource extends Resource
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-users::filament-users.resource.password'))
                 ->password()
-                ->required(fn(string $context): bool => $context === 'create')
+                ->required(fn (string $context): bool => $context === 'create')
                 ->disabled(function (Get $get): bool {
                     return $get('generate_password');
                 })
@@ -184,14 +184,14 @@ class UserResource extends Resource
                 ->searchable(),
             RolesList::make('roles')
                 ->label(__('filament-users::filament-users.resource.role'))
-                ->visible(fn(): bool => Utils::isFilamentShieldInstalled()),
+                ->visible(fn (): bool => Utils::isFilamentShieldInstalled()),
             Tables\Columns\ToggleColumn::make('ignore_2fa')
                 ->label(__('filament-users::filament-users.resource.ignore_2fa'))
                 ->onColor('danger')
                 ->offColor('success')
                 ->onIcon('heroicon-o-shield-exclamation')
                 ->offIcon('heroicon-o-shield-check')
-                ->visible(fn(): bool => Utils::isFilamentBreezyInstalled()),
+                ->visible(fn (): bool => Utils::isFilamentBreezyInstalled()),
             Tables\Columns\TextColumn::make('last_login_at')
                 ->label(__('filament-users::filament-users.resource.last_login_at'))
                 ->formatStateUsing(function (string $state): string {
@@ -199,7 +199,7 @@ class UserResource extends Resource
                         ->format(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s'));
                 })
                 ->placeholder(__('filament-users::filament-users.resource.never_logged_in'))
-                ->visible(fn(): bool => Utils::isFilamentAuthenticationLogInstalled()),
+                ->visible(fn (): bool => Utils::isFilamentAuthenticationLogInstalled()),
             Tables\Columns\TextColumn::make('created_at')
                 ->label(__('filament-users::filament-users.resource.created_at'))
                 ->dateTime(config('filament-users.resource.datetime_format', 'Y-m-d H:i:s')),
@@ -218,7 +218,7 @@ class UserResource extends Resource
             $filters[] = Tables\Filters\SelectFilter::make('roles')
                 ->label(__('filament-users::filament-users.resource.role'))
                 ->relationship('roles', 'name')
-                ->getOptionLabelFromRecordUsing(fn(Model $record) => Str::headline($record->name))
+                ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
                 ->searchable()
                 ->preload();
         }
@@ -240,11 +240,11 @@ class UserResource extends Resource
                 return $query
                     ->when(
                         $data['created_from'],
-                        fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                     )
                     ->when(
                         $data['created_until'],
-                        fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                     );
             })
             ->indicateUsing(function (array $data) use ($dateFormat, $createdFromLabel, $createdUntilLabel): array {
@@ -252,14 +252,14 @@ class UserResource extends Resource
 
                 if ($data['created_from'] ?? null) {
                     $indicators[] = Tables\Filters\Indicator::make(
-                        "$createdFromLabel " . Carbon::parse($data['created_from'])
+                        "$createdFromLabel ".Carbon::parse($data['created_from'])
                             ->format($dateFormat)
                     )->removeField('created_from');
                 }
 
                 if ($data['created_until'] ?? null) {
                     $indicators[] = Tables\Filters\Indicator::make(
-                        "$createdUntilLabel " . Carbon::parse($data['created_until'])
+                        "$createdUntilLabel ".Carbon::parse($data['created_until'])
                             ->format($dateFormat)
                     )->removeField('created_until');
                 }
@@ -324,7 +324,7 @@ class UserResource extends Resource
         $actions[] = DeleteAction::make()
             ->iconSize(IconSize::Medium)
             ->label(false)
-            ->visible(fn(Model $record): bool => $record->id !== auth()->user()?->id)
+            ->visible(fn (Model $record): bool => $record->id !== auth()->user()?->id)
             ->after(function () {
                 Cache::tags(config('filament-users.resource.class')::ADMIN_WIDGETS_DASHBOARD_TAG_KEY)->flush();
             });
