@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.2 - 2025-10-21
+
+### What's Changed
+
+* Fixed API paths and permissions
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.1...v2.0.2
+
 ## v2.0.0 - 2025-10-19
 
 ### What's Changed
