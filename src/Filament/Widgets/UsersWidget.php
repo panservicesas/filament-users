@@ -15,6 +15,11 @@ class UsersWidget extends BaseWidget
 
     protected ?string $pollingInterval = '30s';
 
+    protected function getHeading(): ?string
+    {
+        return null;
+    }
+
     protected function getStats(): array
     {
         $widgets = [];
@@ -56,6 +61,6 @@ class UsersWidget extends BaseWidget
 
     public static function canView(): bool
     {
-        return filament()->auth()->user()?->can('widget_UsersWidget');
+        return filament()->auth()->user()->hasRole('super_admin') || filament()->auth()->user()?->can('View:UsersWidget');
     }
 }
