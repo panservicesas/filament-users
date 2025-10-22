@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.3 - 2025-10-22
+
+### What's Changed
+
+* Fixed user widget policy and permission
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.2...v2.0.3
+
 ## v2.0.2 - 2025-10-21
 
 ### What's Changed
