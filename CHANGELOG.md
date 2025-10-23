@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.4 - 2025-10-23
+
+### What's Changed
+
+* Optimized widget
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.3...v2.0.4
+
 ## v2.0.3 - 2025-10-22
 
 ### What's Changed
