@@ -31,6 +31,7 @@ class UsersWidget extends BaseWidget
             Cache::tags($tag)
                 ->rememberForever("user$keyPostfix", function () use ($keyPostfix) {
                     Log::debug("Cached key \"user$keyPostfix\": is expired fetch data from DB");
+
                     return config('filament-users.resource.model', \App\Models\User::class)::query()->count('id');
                 })
         )->icon('heroicon-o-users');
@@ -40,6 +41,7 @@ class UsersWidget extends BaseWidget
                 Cache::tags($tag)
                     ->rememberForever("role$keyPostfix", function () use ($keyPostfix) {
                         Log::debug("Cached key \"role$keyPostfix\": is expired fetch data from DB");
+
                         return Role::query()->count('id');
                     })
             )->icon('heroicon-o-shield-check');
@@ -48,6 +50,7 @@ class UsersWidget extends BaseWidget
                 Cache::tags($tag)
                     ->rememberForever("permission$keyPostfix", function () use ($keyPostfix) {
                         Log::debug("Cached key \"permission$keyPostfix\": is expired fetch data from DB");
+
                         return Permission::query()->count('id');
                     })
             )->icon('heroicon-o-lock-closed');
