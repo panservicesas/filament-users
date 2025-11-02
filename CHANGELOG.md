@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.5 - 2025-11-02
+
+### What's Changed
+
+* Add checkbox list for manage roles
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.4...v2.0.5
+
 ## v2.0.4 - 2025-10-23
 
 ### What's Changed
