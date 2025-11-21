@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.6 - 2025-11-21
+
+### What's Changed
+
+* Enhanched users filter with multiselect roles
+* Fixed modal creation width
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.5...v2.0.6
+
 ## v2.0.5 - 2025-11-02
 
 ### What's Changed
