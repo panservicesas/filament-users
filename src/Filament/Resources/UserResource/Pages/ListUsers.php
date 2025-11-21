@@ -4,6 +4,7 @@ namespace Panservice\FilamentUsers\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Cache;
 use Panservice\FilamentUsers\Filament\Resources\UserResource;
@@ -29,6 +30,7 @@ class ListUsers extends ListRecords
                 ->modalHeading(__('filament-users::filament-users.resource.new_user'))
                 ->closeModalByClickingAway(false)
                 ->closeModalByEscaping(false)
+                ->modalWidth(Width::SixExtraLarge)
                 ->mutateFormDataUsing(function (array $data) {
                     if (! config('filament-users.resource.roles.multiple', false)) {
                         unset($data['roles']);

@@ -154,7 +154,7 @@ class UserResource extends Resource
                     return config('filament-users.resource.roles.multiple', false) ?
                         count($get('roles')) : 1;
                 })
-                ->columns(4)
+                ->columns(3)
                 ->required();
         }
 
@@ -230,6 +230,7 @@ class UserResource extends Resource
                 ->label(__('filament-users::filament-users.resource.role'))
                 ->relationship('roles', 'name')
                 ->getOptionLabelFromRecordUsing(fn (Model $record) => Str::headline($record->name))
+                ->multiple()
                 ->searchable()
                 ->preload();
         }
