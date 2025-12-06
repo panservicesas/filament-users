@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.0.7 - 2025-12-06
+
+### What's Changed
+
+* Removed filament-api (future implementation of standard Laravel API structure)
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.6...v2.0.7
+
 ## v2.0.6 - 2025-11-21
 
 ### What's Changed
