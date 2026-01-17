@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.1.0 - 2026-01-17
+
+### What's Changed
+
+* Add support to Filament 5
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.0.7...v2.1.0
+
 ## v2.0.7 - 2025-12-06
 
 ### What's Changed
