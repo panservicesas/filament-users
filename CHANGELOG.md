@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v1.7.4 - 2026-01-17
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/10
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/9
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v1.7.3...v1.7.4
+
 ## v2.1.0 - 2026-01-17
 
 ### What's Changed
