@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.1.1 - 2026-01-22
+
+### What's Changed
+
+* Added missing migration for filament authentication plugin
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/11
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.1.0...v2.1.1
+
 ## v1.7.4 - 2026-01-17
 
 ### What's Changed
