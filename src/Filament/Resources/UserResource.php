@@ -59,9 +59,6 @@ class UserResource extends Resource
         return config('filament-users.resource.global_search.title', '');
     }
 
-    /**
-     * @return bool
-     */
     public static function canGloballySearch(): bool
     {
         return config('filament-users.resource.global_search.enabled', false);
