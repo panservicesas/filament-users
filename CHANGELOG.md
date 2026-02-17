@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.2.0 - 2026-02-17
+
+### What's Changed
+
+* Added ability to enable and customize title/attributes for global search
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.1.2...v2.2.0
+
 ## v2.1.1 - 2026-01-22
 
 ### What's Changed
