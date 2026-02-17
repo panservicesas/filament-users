@@ -46,9 +46,7 @@ class UserResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return config('filament-users.resource.globally_searchable_attributes', [
-            'name', 'email',
-        ]);
+        return config('filament-users.resource.global_search.attributes', []);
     }
 
     public static function getSlug(?Panel $panel = null): string
@@ -58,7 +56,15 @@ class UserResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
-        return $record->name;
+        return config('filament-users.resource.global_search.title', '');
+    }
+
+    /**
+     * @return bool
+     */
+    public static function canGloballySearch(): bool
+    {
+        return config('filament-users.resource.global_search.enabled', false);
     }
 
     public static function getNavigationLabel(): string

@@ -15,6 +15,11 @@ return [
         'filters' => [
             'date_format' => 'd/m/Y',
         ],
+        'global_search' => [
+            'title' => '',
+            'attributes' => [],
+            'enabled' => false,
+        ],
     ],
     'email' => [
         'logo' => null,
