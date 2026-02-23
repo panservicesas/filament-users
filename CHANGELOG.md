@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.3.0 - 2026-02-23
+
+### What's Changed
+
+* Update sub_navigation_position and add global_search to config example
+* Removed redirectTo method from Impersonate action (use env or config variable instead)
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.2.0...v2.3.0
+
 ## v2.2.0 - 2026-02-17
 
 ### What's Changed
