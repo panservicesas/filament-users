@@ -328,8 +328,7 @@ class UserResource extends Resource
             $actions[] = \STS\FilamentImpersonate\Actions\Impersonate::make()
                 ->hiddenLabel()
                 ->iconSize(IconSize::Small)
-                ->color(Color::Amber)
-                ->redirectTo(Filament::getCurrentPanel()->getPath());
+                ->color(Color::Amber);
         }
 
         $actions[] = EditAction::make()
