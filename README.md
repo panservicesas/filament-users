@@ -8,6 +8,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/panservicesas/filament-users.svg?style=flat-square)](https://packagist.org/packages/panservicesas/filament-users)
 
 Manage your Filament users with amazing integrations:
+
 * [filament-shield](https://github.com/bezhanSalleh/filament-shield)
 * [filament-breezy](https://github.com/jeffgreco13/filament-breezy)
 * [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log)
@@ -16,10 +17,10 @@ Manage your Filament users with amazing integrations:
 
 ## Version Compatibility
 
-| Plugin | Filament | Laravel              | PHP               |
-|--------|----------|----------------------|-------------------|
-| 1.x    | 3.x      | 10.x \| 11.x \| 12.x | 8.2 \| 8.3 \| 8.4 |
-| 2.x    | 4.x      | 11.x \| 12.x         | 8.2 \| 8.3 \| 8.4 |
+| Plugin | Filament | Laravel              | PHP                      |
+|--------|----------|----------------------|--------------------------|
+| 1.x    | 3.x      | 10.x \| 11.x \| 12.x | 8.2 \| 8.3 \| 8.4        |
+| 2.x    | 4.x \|.x | 11.x \| 12.x         | 8.2 \| 8.3 \| 8.4 \| 8.5 |
 
 ## Installation
 
@@ -47,6 +48,7 @@ return [
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
+            'type' => 'select', //can be 'select' or 'checkbox'
             'multiple' => false,
         ],
         'datetime_format' => 'd/m/Y H:i:s',
@@ -79,7 +81,9 @@ php artisan vendor:publish --tag="filament-users-views"
 ->plugin(\Panservice\FilamentUsers\FilamentUsersPlugin::make())
 ```
 
-If you use [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log) follow this configuration instructions:
+If you use [filament-authentication-log](https://github.com/TappNetwork/filament-authentication-log) follow this
+configuration instructions:
+
 - If present remove `AuthenticationLoggable` trait from your `User` model
 - Add the dedicated `HasUserAuthenticationLog` trait to your `User` model
 
@@ -150,17 +154,20 @@ reti e servizi di comunicazione elettronica ad uso pubblico (installazione ed es
 accesso in fibra ottica e ponti radio), ed è iscritta al Registro degli Operatori di
 Comunicazione al numero 8209.
 
-La nostra rete tocca le città di Latina, sede del data center, Roma e Milano (in anello). E’ in corso di attivazione 
+La nostra rete tocca le città di Latina, sede del data center, Roma e Milano (in anello). E’ in corso di attivazione
 un anello N x 400 Gbit/s in fibra fra Latina, Frosinone, Roma.
 
-Grazie a questa topologia il datacenter da cui vengono erogati i servizi, posto sull’anello, è interconnesso ad elevatissima 
-capacità con i maggiori punti di interscambio nazionali, il Namex a Roma, il MIX ed il Minap di Via Caldera a Milano ed 
-il PCIX di Piacenza, dove avvengono i peering diretti verso quasi quattrocento reti di altri operatori nazionali e 
+Grazie a questa topologia il datacenter da cui vengono erogati i servizi, posto sull’anello, è interconnesso ad
+elevatissima
+capacità con i maggiori punti di interscambio nazionali, il Namex a Roma, il MIX ed il Minap di Via Caldera a Milano ed
+il PCIX di Piacenza, dove avvengono i peering diretti verso quasi quattrocento reti di altri operatori nazionali e
 internazionali nonché le interconnessioni di transito internazionale. Il data center è comunque carrier-neutral.
 
-Il datacenter di Latina è inoltre interconnesso localmente con tratte in fibra ottica a centrali di TIM (3 centrali), Openfiber e Wind.
+Il datacenter di Latina è inoltre interconnesso localmente con tratte in fibra ottica a centrali di TIM (3 centrali),
+Openfiber e Wind.
 
-L’interconnessione verso internet, multihomed e multipath, è gestita tramite protocollo BGP, supporta IPv4 ed IPv6, ed ha 
+L’interconnessione verso internet, multihomed e multipath, è gestita tramite protocollo BGP, supporta IPv4 ed IPv6, ed
+ha
 un AS_Path inferiore a 3 hop verso la maggior parte delle destinazioni nazionali ed internazionali.
 
 La rete è continuamente monitorata e viene gestita proattivamente da personale interno.

@@ -22,6 +22,9 @@ return [
         'send_new_password' => 'Generar y enviar una nueva contraseña al usuario',
         'new_password_sent' => 'Nueva contraseña enviada al usuario',
         'new_password_not_sent' => 'Error al enviar nueva contraseña al usuario',
+        'assign_role' => 'Asignar rol',
+        'role_assigned' => 'Rol asignado correctamente',
+        'role_not_assigned' => 'Error al asignar el rol',
     ],
     'widget' => [
         'heading' => 'Usuarios',

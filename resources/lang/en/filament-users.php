@@ -22,6 +22,9 @@ return [
         'send_new_password' => 'Generate and send new password to user',
         'new_password_sent' => 'New password sent to user',
         'new_password_not_sent' => 'Error sending new password to user',
+        'assign_role' => 'Assign role',
+        'role_assigned' => 'Role assigned with success',
+        'role_not_assigned' => 'Error to assign role',
     ],
     'widget' => [
         'heading' => 'Users',
