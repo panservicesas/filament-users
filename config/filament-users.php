@@ -9,7 +9,7 @@ return [
         'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
         'model' => \App\Models\User::class,
         'roles' => [
-            'type' => 'select', //can be 'select' or 'checkbox'
+            'type' => 'select', // can be 'select' or 'checkbox'
             'multiple' => false,
         ],
         'datetime_format' => 'd/m/Y H:i:s',
