@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.4.0 - 2026-03-04
+
+### What's Changed
+
+* Added config option for choose roles input type(select or checkbox)
+* Added bulk action for assign role to multiple users
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.3.0...v2.4.0
+
 ## v2.3.0 - 2026-02-23
 
 ### What's Changed
