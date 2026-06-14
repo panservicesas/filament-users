@@ -1,13 +1,17 @@
 <?php
 
+use App\Models\User;
+use Filament\Pages\Enums\SubNavigationPosition;
+use Panservice\FilamentUsers\Filament\Resources\UserResource;
+
 return [
     'resource' => [
         'slug' => 'users',
         'group' => null,
         'cluster' => null,
-        'sub_navigation_position' => \Filament\Pages\Enums\SubNavigationPosition::Start,
-        'class' => \Panservice\FilamentUsers\Filament\Resources\UserResource::class,
-        'model' => \App\Models\User::class,
+        'sub_navigation_position' => SubNavigationPosition::Start,
+        'class' => UserResource::class,
+        'model' => User::class,
         'roles' => [
             'type' => 'select', // can be 'select' or 'checkbox'
             'multiple' => false,

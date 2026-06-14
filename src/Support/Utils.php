@@ -4,6 +4,7 @@ namespace Panservice\FilamentUsers\Support;
 
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
+use Illuminate\Support\Str;
 
 class Utils
 {
@@ -61,9 +62,6 @@ class Utils
 
     /**
      * Generates a random password with special characters.
-     *
-     * @param int $length
-     * @return string
      */
     public static function generateRandomPassword(int $length = 12, int $specialCharsLength = 4, string $symbols = '!#-_=:,.?'): string
     {
@@ -73,8 +71,8 @@ class Utils
             $specialChars .= $symbols[random_int(0, strlen($symbols) - 1)];
         }
 
-        $password = \Illuminate\Support\Str::password($length - $specialCharsLength, true, true, false);
-        
-        return str_shuffle($password . $specialChars);
+        $password = Str::password($length - $specialCharsLength, true, true, false);
+
+        return str_shuffle($password.$specialChars);
     }
 }

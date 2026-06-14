@@ -2,6 +2,7 @@
 
 namespace Panservice\FilamentUsers\Filament\Widgets;
 
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +33,7 @@ class UsersWidget extends BaseWidget
                 ->rememberForever("user$keyPostfix", function () use ($keyPostfix) {
                     Log::debug("Cached key \"user$keyPostfix\": is expired fetch data from DB");
 
-                    return config('filament-users.resource.model', \App\Models\User::class)::query()->count('id');
+                    return config('filament-users.resource.model', User::class)::query()->count('id');
                 })
         )->icon('heroicon-o-users');
 
