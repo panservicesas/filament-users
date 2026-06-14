@@ -58,4 +58,23 @@ class Utils
     {
         return class_exists('\STS\FilamentImpersonate\FilamentImpersonateServiceProvider');
     }
+
+    /**
+     * Generates a random password with special characters.
+     *
+     * @param int $length
+     * @return string
+     */
+    public static function generateRandomPassword(int $length = 12, int $specialCharsLength = 4, string $symbols = '!#-_=:,.?'): string
+    {
+        $specialChars = '';
+
+        for ($i = 0; $i < $specialCharsLength; $i++) {
+            $specialChars .= $symbols[random_int(0, strlen($symbols) - 1)];
+        }
+
+        $password = \Illuminate\Support\Str::password($length - $specialCharsLength, true, true, false);
+        
+        return str_shuffle($password . $specialChars);
+    }
 }
