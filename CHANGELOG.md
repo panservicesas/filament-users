@@ -2,6 +2,17 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.5.0 - 2026-06-14
+
+### What's Changed
+
+* Added generateRandomPassword utils
+* Updated password generation for actions and live button
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/14
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/12
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.4.0...v2.5.0
+
 ## v2.4.0 - 2026-03-04
 
 ### What's Changed
