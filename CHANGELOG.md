@@ -2,6 +2,15 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.5.1 - 2026-07-18
+
+### What's Changed
+
+* Added support to Laravel 13
+* Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/panservicesas/filament-users/pull/15
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.5.0...v2.5.1
+
 ## v2.5.0 - 2026-06-14
 
 ### What's Changed
