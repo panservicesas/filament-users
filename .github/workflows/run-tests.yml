@@ -31,6 +31,7 @@ jobs:
           - laravel: 13.*
             testbench: 11.*
             carbon: 3.*
+            pest: ^3.3
         exclude:
           - php: 8.2
             laravel: 13.*
