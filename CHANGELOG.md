@@ -2,6 +2,14 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.5.2 - 2026-10-05
+
+### What's Changed
+
+* Enhance UserResource: make email copyable, disable record URL, and require confirmation on impersonate
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.5.1...v2.5.2
+
 ## v2.5.1 - 2026-07-18
 
 ### What's Changed
