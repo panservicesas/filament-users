@@ -19,6 +19,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\IconPosition;
 use Filament\Support\Enums\IconSize;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -111,6 +112,7 @@ class UserResource extends Resource
             ->toolbarActions(self::getBulkActions())
             ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->id !== auth()->user()?->id)
             ->persistFiltersInSession()
+            ->recordUrl(null)
             ->paginated();
     }
 
@@ -203,6 +205,9 @@ class UserResource extends Resource
                 ->searchable(),
             Tables\Columns\TextColumn::make('email')
                 ->label(__('filament-users::filament-users.resource.email'))
+                ->icon('heroicon-o-clipboard-document-list')
+                ->iconPosition(IconPosition::After)
+                ->copyable()
                 ->searchable(),
             RolesList::make('roles')
                 ->label(__('filament-users::filament-users.resource.role'))
@@ -336,7 +341,8 @@ class UserResource extends Resource
             $actions[] = Impersonate::make()
                 ->hiddenLabel()
                 ->iconSize(IconSize::Small)
-                ->color(Color::Amber);
+                ->color(Color::Amber)
+                ->requiresConfirmation();
         }
 
         $actions[] = EditAction::make()
