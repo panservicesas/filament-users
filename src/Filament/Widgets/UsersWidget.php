@@ -62,6 +62,10 @@ class UsersWidget extends BaseWidget
 
     public static function canView(): bool
     {
+        if (!Utils::isFilamentShieldInstalled()) {
+            return true;
+        }
+
         return filament()->auth()->user()->hasRole('super_admin') || filament()->auth()->user()?->can('View:UsersWidget');
     }
 }
