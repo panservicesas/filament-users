@@ -62,7 +62,7 @@ class UsersWidget extends BaseWidget
 
     public static function canView(): bool
     {
-        if (!Utils::isFilamentShieldInstalled()) {
+        if (! Utils::isFilamentShieldInstalled()) {
             return true;
         }
 
