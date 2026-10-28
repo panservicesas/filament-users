@@ -2,6 +2,17 @@
 
 All notable changes to `filament-users` will be documented in this file.
 
+## v2.5.3 - 2026-10-28
+
+### What's Changed
+
+* fix: allow UsersWidget view when Filament Shield is not installed
+  Add a guard clause in canView() to return true if Filament Shield is not
+  installed, preventing errors when the widget is accessed without Shield
+  permissions configured.
+
+**Full Changelog**: https://github.com/panservicesas/filament-users/compare/v2.5.2...v2.5.3
+
 ## v2.5.2 - 2026-10-05
 
 ### What's Changed
